@@ -1,0 +1,480 @@
+openapi: 3.0.1
+info:
+  title: API para Inventario | Carmotoshop
+  description: Esta Api se encarga del manejo de la información de la tabla Vehicles
+  version: 1.0.0
+servers:
+- url: http://localhost:9090/api/
+tags: 
+- name: Vehiculos
+  description: Este endpoint maneja toda la informacion relacionada con la informacion de los vehiculos.
+- name: Productos
+  description: Este endpoint maneja toda la informacion relacionada con la informacion de los Productos.
+- name: Proveedor
+  description: Este endpoint maneja toda la informacion relacionada con la informacion de los Proveedores.
+  
+paths:
+  /obtenerVehicles:
+    get:
+      tags:
+        - Vehiculos
+      summary: Obtener informacion de Vehiculos mediante su modelo
+      parameters:
+      
+      - in: query
+        name: Modelo
+        required: true
+        description: Modelo del Vehiculo a buscar
+        schema:
+          type: string
+          example: Corolla
+      - in: query
+        name: Año
+        required: true
+        description: Año del vehiculo
+        schema:
+          type: number
+          example: 2022
+      responses:
+        200:
+          description: (Ok)La peticion fue exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExitoVehiculoGet'
+        400: 
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+  /addVehicle:
+    post: 
+      tags: 
+      - Vehiculos
+      summary: Inserta la informacion de un nuevo Vehiculo a la BD.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyVehiculosPost'
+        required: true
+      responses:
+        200:
+          $ref: '#/components/schemas/ExitoVehiculosPost'
+        400: 
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+        
+  /obtenerVehicle{IdVehiculo}:
+     get:
+      tags:
+       - Vehiculos
+      summary: Obtiene la información de la base de datos de un vehiculo
+      parameters:
+      - name: IdVehiculo
+        in: path
+        description: Identificador del vehiculo a obtener
+        required: true
+        schema:
+          type: string 
+          
+      responses:
+        200: 
+          description: (Ok) La informacion del Vehiculo  se obtuvo correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExitoVehiculoGet'
+        400: 
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /modificarVehicle/{IdVehiculo}:
+    put:
+      tags:
+       - Vehiculos
+      summary: Modificar los datos de un vehiculo
+      operationId: updatePutWithForm
+      description: Ingrese el Id del Vehiculo que quiere modificar para posteriormente ingresar sus nuevos datos
+      parameters:
+      - name: IdVehiculo
+        in: path
+        description: Ingrese el ID del vehiculo que desea modificar.
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+             $ref:'#/components/schemas/BodyVehiculosPost'
+        required: true
+      responses:
+        200:
+          $ref: '#/components/schemas/ExitoVehiculosPost'
+        400: 
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+          
+  /eliminarVehicle{IdVehiculo}:
+    delete:
+        tags:
+         - Vehiculos
+        summary: Elimina los datos de un vehiculo
+        parameters:
+        - name: IdVehiculo
+          in: path
+          description: Identificador del vehiculo a eliminar
+          required: true
+          schema:
+            type: string
+              
+        responses:
+         200:
+          description: (Ok) El vehiculo se elimino correctamente
+         400: 
+           $ref: '#/components/responses/BadRequest'
+         404:
+           $ref: '#/components/responses/NotFound'
+         500:
+           $ref: '#/components/responses/ServerError'  
+           
+  /obtenerProducto:
+    get:
+      tags:
+        - Productos
+      summary: Obtener informacion de Vehiculos mediante su modelo
+      parameters:
+      
+      - in: query
+        name: Nombre del Producto
+        required: true
+        description: Nombre del Producto a buscar
+        schema:
+          type: string
+          example: Aceite Motul 
+      responses:
+        200:
+          description: (Ok)La peticion fue exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExitoProductoGet'
+        400: 
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+  /addProduct:
+    post: 
+      tags: 
+      - Productos
+      summary: Inserta la informacion de un nuevo Producto a la BD.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyProductsPost'
+        required: true
+      responses:
+        200:
+          $ref: '#/components/schemas/ExitoVehiculosPost'
+        400: 
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'  
+          
+  /obtenerProducto{IdProducto}:
+     get:
+      tags:
+       - Productos
+      summary: Obtiene la información de la base de datos de un Producto
+      parameters:
+      - name: IdProducto
+        in: path
+        description: Identificador del producto que desea  obtener
+        required: true
+        schema:
+          type: integer 
+          
+      responses:
+        200: 
+          description: (Ok) La informacion del Vehiculo  se obtuvo correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExitoProductoGet'
+        400: 
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+  /eliminarProducto{IdProducto}:
+    delete:
+        tags:
+         - Productos
+        summary: Elimina los datos del Producto
+        parameters:
+        - name: IdProducto
+          in: path
+          description: Identificador del Producto que desea eliminar
+          required: true
+          schema:
+            type: integer
+              
+        responses:
+         200:
+          description: (Ok) El Producto se elimino correctamente
+         400: 
+           $ref: '#/components/responses/BadRequest'
+         404:
+           $ref: '#/components/responses/NotFound'
+         500:
+           $ref: '#/components/responses/ServerError'
+  /obtenerProveedor:
+    get:
+      tags:
+        - Proveedor
+      summary: Obtener informacion de un Proveedor mediante su nombre
+      parameters:
+      
+      - in: query
+        name: Nombre
+        required: true
+        description: Nombre del Proveedor a buscar
+        schema:
+          type: string
+          example: Vini 
+      responses:
+        200:
+          description: (Ok)La peticion fue exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExitoProveedorGet'
+        400: 
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+  /addProveedor:
+    post: 
+      tags: 
+      - Proveedor
+      summary: Inserta la informacion de un nuevo Proveedor a la BD.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyProveedorPost'
+        required: true
+      responses:
+        200:
+          $ref: '#/components/schemas/ExitoVehiculosPost'
+        400: 
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'   
+  /eliminarProveedor{IdProveedor}:
+    delete:
+        tags:
+         - Proveedor
+        summary: Elimina los datos del Proveedor
+        parameters:
+        - name: IdProveedor
+          in: path
+          description: Identificador del proveedor que desea eliminar
+          required: true
+          schema:
+            type: integer
+              
+        responses:
+         200:
+          description: (Ok) El Producto se elimino correctamente
+         400: 
+           $ref: '#/components/responses/BadRequest'
+         404:
+           $ref: '#/components/responses/NotFound'
+         500:
+           $ref: '#/components/responses/ServerError'
+      
+components:
+  responses:
+    NotFound: 
+      description: (NotFound) no se encontro la informacion del lado del servidor 
+    
+    BadRequest: 
+      description: (BadRequest) Los datos enviados son incorrectos o hay datos obligatorios no enviados 
+   
+    ServerError: 
+      description: (ServerError) Error en el servidor 
+      
+  schemas:
+    BodyVehiculosPost:
+      type: object
+      properties:
+        vehicleType:
+          type: string
+          description: Que tipo de Vehiculo es(Sedan,Camioneta,Pick up)
+        modelName:
+          type: string
+          description: Nombre del Modelo
+        make:
+          type: string
+          description: make
+        modelStartYear:
+          type: string
+          description: Año de inicio del modelo
+        modelEndYear:
+         type: string
+         description: Año de finalizacion del modelo
+        modelEngineDisplacement:
+         type: string
+         description: Cilidraje del motor
+         
+    BodyProductsPost:
+      type: object
+      properties:
+        productName:
+          type: string
+          description: Nombre del Producto
+        productCost:
+          type: number
+          description: Coste del Producto
+        marginPercentage:
+          type: number
+          description: Margen del procentaje
+        productDescription:
+          type: string
+          description: Descripcion del producto
+        quantity:
+          type: number
+          description: Stock
+        lastUpdateTs:
+          type: string
+          description: 10/11/2022:2:37
+        providerId:
+          type: string
+          description: Nombre del Proveedor
+    BodyProveedorPost:
+      type: object
+      properties:
+        providerName:
+          type: string
+          description: Nombre del Proveedor
+        providerContact:
+          type: string
+          description: Contacto del Proveedor
+        providerPhoneNum:
+          type: string
+          description: Numero Telefonico
+        isTaxPayer:
+          type: string 
+          description: Is Tax Payer
+        providerAddressId:
+          type: integer
+          description: ID de la Direccion
+         
+    ExitoVehiculosPost:
+      type: object
+      properties:
+        respuesta:
+          type: integer
+          enum: [1]
+          description: Bandera  que nos indica  si la llamada al servicio fue exitosa
+        IdVehiculo:
+          type: integer
+          enum: [222]
+          description: Id que le corresponde al Vehiculo
+         
+         
+    ExitoVehiculoGet:
+      type: object
+      properties:
+        vehicleType:
+          type: string
+          description: Que tipo de Vehiculo es(Sedan,Camioneta,Pick up)
+        modelName:
+          type: string
+          description: Nombre del Modelo
+        make:
+          type: string
+          description: make
+        modelStartYear:
+          type: string
+          description: Año de inicio del modelo
+        modelEndYear:
+         type: string
+         description: Año de finalizacion del modelo
+        modelEngineDisplacement:
+         type: string
+         description: Cilidraje del motor
+         
+    ExitoProductoGet:
+      type: object
+      properties:
+        productId:
+          type: integer
+          description: ID del Producto
+        productName:
+          type: string
+          description: Nombre del Producto
+        productCost:
+          type: number
+          description: Coste del Producto
+        marginPercentage:
+          type: number
+          description: Margen del procentaje
+        productDescription:
+          type: string
+          description: Descripcion del producto
+        quantity:
+          type: number
+          description: Stock
+        lastUpdateTs:
+          type: string
+          description: 10/11/2022:2:37
+        providerId:
+          type: string
+          description: Nombre del Proveedor
+          
+    ExitoProveedorGet:
+      type: object
+      properties:
+        providerId:
+          type: number
+          description: ID del Proveedor
+        providerName:
+          type: string
+          description: Nombre del Proveedor
+        providerContact:
+          type: string
+          description: Contacto del Proveedor
+        providerPhoneNum:
+          type: string
+          description: Numero Telefonico
+        isTaxPayer:
+          type: string 
+          description: Is Tax Payer
+        providerAddressId:
+          type: integer
+          description: ID de la Direccion
+        
+      
