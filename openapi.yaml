@@ -43,11 +43,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExitoVehiculoGet'
         400: 
-          $ref: '#/components/responses/BadRequest'
+            $ref: '#/components/responses/BadRequest'
         404:
-          $ref: '#/components/responses/NotFound'
+            $ref: '#/components/schemas/Error'
         500:
-          $ref: '#/components/responses/ServerError'
+            $ref: '#/components/schemas/Error'
+           
   /addVehicle:
     post: 
       tags: 
@@ -63,11 +64,11 @@ paths:
         200:
           $ref: '#/components/schemas/ExitoVehiculosPost'
         400: 
-          $ref: '#/components/responses/BadRequest'
+           $ref: '#/components/responses/BadRequest'
         404:
-          $ref: '#/components/responses/NotFound'
+           $ref: '#/components/schemas/Error'
         500:
-          $ref: '#/components/responses/ServerError'
+           $ref: '#/components/schemas/Error'
         
   /obtenerVehicle{IdVehiculo}:
      get:
@@ -90,41 +91,41 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExitoVehiculoGet'
         400: 
-          $ref: '#/components/responses/BadRequest'
+           $ref: '#/components/responses/BadRequest'
         404:
-          $ref: '#/components/responses/NotFound'
+           $ref: '#/components/schemas/Error'
         500:
-          $ref: '#/components/responses/ServerError'
+           $ref: '#/components/schemas/Error'
           
   /modificarVehicle/{IdVehiculo}:
-    put:
-      tags:
-       - Vehiculos
-      summary: Modificar los datos de un vehiculo
-      operationId: updatePutWithForm
-      description: Ingrese el Id del Vehiculo que quiere modificar para posteriormente ingresar sus nuevos datos
-      parameters:
-      - name: IdVehiculo
-        in: path
-        description: Ingrese el ID del vehiculo que desea modificar.
-        required: true
-        schema:
-          type: number
-      requestBody:
-        content:
-          application/json:
-            schema:
-             $ref:'#/components/schemas/BodyVehiculosPost'
-        required: true
-      responses:
-        200:
-          $ref: '#/components/schemas/ExitoVehiculosPost'
-        400: 
-          $ref: '#/components/responses/BadRequest'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/ServerError'
+      put:
+        tags:
+        - Vehiculos
+        summary: Modificar los datos de un vehiculo
+        operationId: updatePutWithForm
+        description: Ingrese el Id del Vehiculo que quiere modificar para posteriormente ingresar sus nuevos datos
+        parameters:
+         - name: IdVehiculo
+           in: path
+           description: Ingrese el ID del vehiculo que desea modificar.
+           required: true
+           schema:
+            type: number
+        requestBody:
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/BodyVehiculosPost'
+          required: true
+        responses:
+         200:
+            $ref: '#/components/schemas/ExitoVehiculosPost'
+         400: 
+           $ref: '#/components/responses/BadRequest'
+         404:
+           $ref: '#/components/schemas/Error'
+         500:
+           $ref: '#/components/schemas/Error'
           
   /eliminarVehicle{IdVehiculo}:
     delete:
@@ -145,9 +146,9 @@ paths:
          400: 
            $ref: '#/components/responses/BadRequest'
          404:
-           $ref: '#/components/responses/NotFound'
+           $ref: '#/components/schemas/Error'
          500:
-           $ref: '#/components/responses/ServerError'  
+           $ref: '#/components/schemas/Error'  
            
   /obtenerProducto:
     get:
@@ -171,11 +172,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExitoProductoGet'
         400: 
-          $ref: '#/components/responses/BadRequest'
+           $ref: '#/components/responses/BadRequest'
         404:
-          $ref: '#/components/responses/NotFound'
+           $ref: '#/components/schemas/Error'
         500:
-          $ref: '#/components/responses/ServerError'
+           $ref: '#/components/schemas/Error'
   /addProduct:
     post: 
       tags: 
@@ -191,11 +192,11 @@ paths:
         200:
           $ref: '#/components/schemas/ExitoVehiculosPost'
         400: 
-          $ref: '#/components/responses/BadRequest'
+           $ref: '#/components/responses/BadRequest'
         404:
-          $ref: '#/components/responses/NotFound'
+           $ref: '#/components/schemas/Error'
         500:
-          $ref: '#/components/responses/ServerError'  
+           $ref: '#/components/schemas/Error'  
           
   /obtenerProducto{IdProducto}:
      get:
@@ -218,11 +219,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExitoProductoGet'
         400: 
-          $ref: '#/components/responses/BadRequest'
+           $ref: '#/components/responses/BadRequest'
         404:
-          $ref: '#/components/responses/NotFound'
+           $ref: '#/components/schemas/Error'
         500:
-          $ref: '#/components/responses/ServerError'
+           $ref: '#/components/schemas/Error'
   /eliminarProducto{IdProducto}:
     delete:
         tags:
@@ -242,9 +243,9 @@ paths:
          400: 
            $ref: '#/components/responses/BadRequest'
          404:
-           $ref: '#/components/responses/NotFound'
+           $ref: '#/components/schemas/Error'
          500:
-           $ref: '#/components/responses/ServerError'
+           $ref: '#/components/schemas/Error'
   /obtenerProveedor:
     get:
       tags:
@@ -267,11 +268,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExitoProveedorGet'
         400: 
-          $ref: '#/components/responses/BadRequest'
+           $ref: '#/components/responses/BadRequest'
         404:
-          $ref: '#/components/responses/NotFound'
+           $ref: '#/components/schemas/Error'
         500:
-          $ref: '#/components/responses/ServerError'
+           $ref: '#/components/schemas/Error'
   /addProveedor:
     post: 
       tags: 
@@ -287,11 +288,11 @@ paths:
         200:
           $ref: '#/components/schemas/ExitoVehiculosPost'
         400: 
-          $ref: '#/components/responses/BadRequest'
+           $ref: '#/components/responses/BadRequest'
         404:
-          $ref: '#/components/responses/NotFound'
+           $ref: '#/components/schemas/Error'
         500:
-          $ref: '#/components/responses/ServerError'   
+           $ref: '#/components/schemas/Error'  
   /eliminarProveedor{IdProveedor}:
     delete:
         tags:
@@ -311,20 +312,17 @@ paths:
          400: 
            $ref: '#/components/responses/BadRequest'
          404:
-           $ref: '#/components/responses/NotFound'
+           $ref: '#/components/schemas/Error'
          500:
-           $ref: '#/components/responses/ServerError'
+           $ref: '#/components/schemas/Error'
       
 components:
   responses:
-    NotFound: 
-      description: (NotFound) no se encontro la informacion del lado del servidor 
     
     BadRequest: 
       description: (BadRequest) Los datos enviados son incorrectos o hay datos obligatorios no enviados 
    
-    ServerError: 
-      description: (ServerError) Error en el servidor 
+     
       
   schemas:
     BodyVehiculosPost:
@@ -476,5 +474,26 @@ components:
         providerAddressId:
           type: integer
           description: ID de la Direccion
-        
+    Error:
+        type: object
+        properties:
+            errors: 
+                type: array
+                items:
+                    type: object
+                    properties:
+                        errorType:
+                            type: string
+                            example: 'Advertencia'
+                        errorCode: 
+                            type: string
+                            example: 'PA001'
+                        errorMessage: 
+                            type: string
+                            example: 'El registro ya Existe'
+                        timeStamp:
+                            type: string
+                            format: timestamp
+                            description: timestamp as defined in RFC3339
+                            example: '2022-10-12T07:20:50.52Z' 
       
